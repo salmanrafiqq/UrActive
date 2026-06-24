@@ -104,7 +104,7 @@ export const addEvent = async (eventData: any) => {
   }
 }
 
-export const getEventById = async (eventId: string) => {
+export const getEventById = async (eventId: string): Promise<any> => {
   try {
     const eventDoc = await getDoc(doc(eventsCollection, eventId))
     if (eventDoc.exists()) {
@@ -140,7 +140,7 @@ export const getPendingEvents = async (): Promise<any> => {
   }
 }
 
-export const getEventsByCategory = async (category: string) => {
+export const getEventsByCategory = async (category: string): Promise<any> => {
   try {
     const q = query(
       eventsCollection,
@@ -156,7 +156,7 @@ export const getEventsByCategory = async (category: string) => {
   }
 }
 
-export const getEventsByOrganizer = async (organizerId: string) => {
+export const getEventsByOrganizer = async (organizerId: string): Promise<any> => {
   try {
     const q = query(
       eventsCollection,
