@@ -54,7 +54,13 @@ const compressImage = async (file: File, maxWidth = 800, maxHeight = 600, qualit
           return
         }
         ctx.drawImage(img, 0, 0, width, height)
-        canvas.toBlob(resolve, 'image/jpeg', quality)
+        canvas.toBlob((blob: Blob | null) => {
+          if (!blob) {
+            reject(new Error('Failed to create image blob'))
+            return
+          }
+          resolve(blob)
+        }, 'image/jpeg', quality)
       }
       img.onerror = () => reject(new Error('Failed to load image'))
       img.src = e.target?.result as string
