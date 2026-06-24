@@ -54,7 +54,7 @@ export default function OrganizerDashboardPage() {
         setCurrentUser(user)
         console.log('Loading events for organizer:', user.uid)
         const userEvents = await getEventsByOrganizer(user.uid)
-        console.log('Loaded events:', userEvents.map(e => ({ 
+        console.log('Loaded events:', userEvents.map((e: any) => ({ 
           id: e.id, 
           title: e.title, 
           hasImage: !!e.image,
@@ -76,7 +76,7 @@ export default function OrganizerDashboardPage() {
   const handleDelete = async (eventId: string) => {
     try {
       await deleteEvent(eventId)
-      setEvents(events.filter((e) => e.id !== eventId))
+      setEvents(events.filter((e: any) => e.id !== eventId))
       setDeleteConfirm(null)
     } catch (err) {
       console.error('Failed to delete event:', err)
@@ -186,7 +186,7 @@ export default function OrganizerDashboardPage() {
       // Fetch the updated event from Firebase to ensure display is correct
       const updatedEvent = await getEventById(editingEvent.id)
       if (updatedEvent) {
-        setEvents(events.map(e => e.id === editingEvent.id ? updatedEvent : e))
+        setEvents(events.map((e: any) => e.id === editingEvent.id ? updatedEvent : e))
       }
 
       setEditingEvent(null)
@@ -209,9 +209,9 @@ export default function OrganizerDashboardPage() {
 
   const stats = {
     total: events.length,
-    approved: events.filter((e) => e.status === 'approved').length,
-    pending: events.filter((e) => e.status === 'pending' || e.status === 'changes_requested').length,
-    registrations: events.reduce((sum, e) => sum + (e.attendees || 0), 0),
+    approved: events.filter((e: any) => e.status === 'approved').length,
+    pending: events.filter((e: any) => e.status === 'pending' || e.status === 'changes_requested').length,
+    registrations: events.reduce((sum: any, e: any) => sum + (e.attendees || 0), 0),
   }
 
   if (isLoading) {
