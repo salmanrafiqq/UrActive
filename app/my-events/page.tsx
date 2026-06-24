@@ -1,12 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Calendar, MapPin, Users, ArrowLeft } from 'lucide-react'
+import { Calendar, MapPin, Users } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { getUserRegistrations, getEventById } from '@/lib/database'
 import { getCurrentUser } from '@/lib/auth'
-import { ProtectedRoute } from '@/components/protected-route'
 
 interface Event {
   id: string
@@ -34,14 +33,11 @@ export default function MyEventsPage() {
     const fetchUserEvents = async () => {
       try {
         const user = await getCurrentUser()
-        setCurrentUser(user)
-        
         if (!user) {
-          setIsLoading(false)
+          router.push('/login')
           return
         }
-        
-        // Get all event IDs the user is registered for
+        setCurrentUser(user)
         const registrationIds = await getUserRegistrations(user.uid)
         
         if (!registrationIds || registrationIds.length === 0) {
@@ -93,34 +89,15 @@ export default function MyEventsPage() {
     )
   }
 
-  if (error) {
-    return (
-      <div className="min-h-screen bg-slate-50">
-        <div className="bg-white border-b border-slate-200 py-8 px-4">
-          <div className="max-w-7xl mx-auto">
-            <h1 className="text-4xl font-bold text-slate-900 mb-2">My Events</h1>
-            <p className="text-slate-600">Track your registered events</p>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-            {error}
-          </div>
+  return (
+    <div className="min-h-screen bg-slate-50">
+      {/* Header */}
+      <div className="bg-white border-b border-slate-200 py-8 px-4">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-4xl font-bold text-slate-900 mb-2">My Events</h1>
+          <p className="text-slate-600">Track your registered events</p>
         </div>
       </div>
-    )
-  }
-
-  return (
-    <ProtectedRoute>
-      <div className="min-h-screen bg-slate-50">
-        {/* Header */}
-        <div className="bg-white border-b border-slate-200 py-8 px-4">
-          <div className="max-w-7xl mx-auto">
-            <h1 className="text-4xl font-bold text-slate-900 mb-2">My Events</h1>
-            <p className="text-slate-600">Track your registered events</p>
-          </div>
-        </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Tabs */}
@@ -218,6 +195,6 @@ export default function MyEventsPage() {
           </div>
         )}
       </div>
-    </ProtectedRoute>
+    </div>
   )
 }

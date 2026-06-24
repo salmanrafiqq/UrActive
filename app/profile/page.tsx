@@ -7,7 +7,6 @@ import Link from 'next/link'
 import { getCurrentUser, logout } from '@/lib/auth'
 import { getUserProfile, updateUserProfile, createUserProfile } from '@/lib/database'
 import { uploadAvatarImage } from '@/lib/cloudinary'
-import { ProtectedRoute } from '@/components/protected-route'
 
 interface UserProfile {
   id: string
@@ -252,8 +251,7 @@ export default function ProfilePage() {
   const getAvatarUrl = () => avatarPreview || editData.avatar || profile?.avatar
 
   return (
-    <ProtectedRoute>
-      <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50">
       {/* Header */}
       <div className="bg-white border-b border-slate-200 py-6 px-4">
         <div className="max-w-2xl mx-auto">
@@ -518,6 +516,6 @@ export default function ProfilePage() {
           )}
         </div>
       </div>
-    </ProtectedRoute>
+    </div>
   )
 }
