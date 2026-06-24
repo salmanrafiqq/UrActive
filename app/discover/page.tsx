@@ -3,7 +3,9 @@
 import { useState, useEffect } from 'react'
 import { Search, Filter, Calendar, MapPin, Users } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { getAllEvents, getEventsByCategory } from '@/lib/database'
+import { getCurrentUser } from '@/lib/auth'
 
 interface Event {
   id: string
@@ -21,6 +23,7 @@ interface Event {
 const categories = ['All', 'Academic', 'Social', 'Sports & Recreation', 'Arts & Culture', 'Technology', 'Career Development', 'Wellness']
 
 export default function DiscoverPage() {
+  const router = useRouter()
   const [events, setEvents] = useState<Event[]>([])
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([])
   const [searchTerm, setSearchTerm] = useState('')
@@ -29,8 +32,15 @@ export default function DiscoverPage() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    const fetchEvents = async () => {
+    const checkAuthAndFetchEvents = async () => {
       try {
+        // Check if user is authenticated
+        const user = await getCurrentUser()
+        if (!user) {
+          router.push('/login')
+          return
+        }
+
         setIsLoading(true)
         const fetchedEvents = await getAllEvents()
         setEvents(fetchedEvents as Event[])
@@ -42,8 +52,8 @@ export default function DiscoverPage() {
       }
     }
 
-    fetchEvents()
-  }, [])
+    checkAuthAndFetchEvents()
+  }, [router])
 
   useEffect(() => {
     let filtered = events

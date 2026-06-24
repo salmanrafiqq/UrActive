@@ -41,6 +41,10 @@ export default function EventDetailsPage() {
     const fetchEventAndUser = async () => {
       try {
         const user = await getCurrentUser()
+        if (!user) {
+          router.push('/login')
+          return
+        }
         setCurrentUser(user)
 
         const eventData = await getEventById(eventId)
