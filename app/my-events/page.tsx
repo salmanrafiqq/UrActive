@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { getUserRegistrations, getEventById } from '@/lib/database'
 import { getCurrentUser } from '@/lib/auth'
+import { ProtectedRoute } from '@/components/protected-route'
 
 interface Event {
   id: string
@@ -33,12 +34,12 @@ export default function MyEventsPage() {
     const fetchUserEvents = async () => {
       try {
         const user = await getCurrentUser()
+        setCurrentUser(user)
+        
         if (!user) {
-          router.push('/login')
+          setIsLoading(false)
           return
         }
-
-        setCurrentUser(user)
         
         // Get all event IDs the user is registered for
         const registrationIds = await getUserRegistrations(user.uid)
@@ -111,14 +112,15 @@ export default function MyEventsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <div className="bg-white border-b border-slate-200 py-8 px-4">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold text-slate-900 mb-2">My Events</h1>
-          <p className="text-slate-600">Track your registered events</p>
+    <ProtectedRoute>
+      <div className="min-h-screen bg-slate-50">
+        {/* Header */}
+        <div className="bg-white border-b border-slate-200 py-8 px-4">
+          <div className="max-w-7xl mx-auto">
+            <h1 className="text-4xl font-bold text-slate-900 mb-2">My Events</h1>
+            <p className="text-slate-600">Track your registered events</p>
+          </div>
         </div>
-      </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Tabs */}
@@ -216,6 +218,6 @@ export default function MyEventsPage() {
           </div>
         )}
       </div>
-    </div>
+    </ProtectedRoute>
   )
 }

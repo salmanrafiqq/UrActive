@@ -8,6 +8,7 @@ import { addEvent, getUserProfile } from '@/lib/database'
 import { uploadEventImage } from '@/lib/cloudinary'
 import { getCurrentUser } from '@/lib/auth'
 import { getSuggestedImages, downloadImageFromUrl, type SuggestedImage } from '@/lib/images'
+import { ProtectedRoute } from '@/components/protected-route'
 
 export default function CreateEventPage() {
   const router = useRouter()
@@ -215,7 +216,8 @@ export default function CreateEventPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-slate-50">
       {/* Header */}
       <div className="bg-white border-b border-slate-200 py-8 px-4">
         <div className="max-w-4xl mx-auto">
@@ -462,6 +464,6 @@ export default function CreateEventPage() {
           </form>
         </div>
       </div>
-    </div>
+    </ProtectedRoute>
   )
 }

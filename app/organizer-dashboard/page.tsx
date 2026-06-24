@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { getCurrentUser } from '@/lib/auth'
 import { getEventsByOrganizer, deleteEvent, getEventRegistrations, getUserProfile, updateEvent, getEventById } from '@/lib/database'
 import { uploadEventImage } from '@/lib/cloudinary'
+import { ProtectedRoute } from '@/components/protected-route'
 
 interface Event {
   id: string
@@ -250,7 +251,8 @@ export default function OrganizerDashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-slate-50">
       {/* Header */}
       <div className="bg-white border-b border-slate-200 py-8 px-4">
         <div className="max-w-7xl mx-auto">
@@ -630,6 +632,6 @@ export default function OrganizerDashboardPage() {
           </div>
         )}
       </div>
-    </div>
+    </ProtectedRoute>
   )
 }
