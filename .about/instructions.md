@@ -74,7 +74,6 @@ NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=your_upload_preset
 ### 3. Firebase Setup
 1. Enable Authentication in Firebase Console
    - Sign-in method: Email/Password
-   - Email verification: Enabled (requires billing account)
 2. Create Firestore Database (Start in production mode)
 3. Update security rules with `firestore.rules`
 
@@ -161,6 +160,7 @@ Visit http://localhost:3000
    - Route protection for unverified email users
    - Verification status page (/verify-email)
    - Middleware for auth guards
+   - Event Bookmarks and Calendar integration
 
 ## Next Steps for Development
 
@@ -227,10 +227,4 @@ npm run type-check # Check TypeScript
 - [Tailwind CSS](https://tailwindcss.com/docs)
 - [TypeScript](https://www.typescriptlang.org/docs/)
 
-## Team Guidelines
 
-- Keep components small and focused
-- Use TypeScript strict mode
-- Write meaningful commit messages
-- Test in multiple browsers
-- Follow existing code style

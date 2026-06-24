@@ -295,7 +295,7 @@ export const createUserProfile = async (userId: string, userData: any) => {
   }
 }
 
-export const getUserProfile = async (userId: string) => {
+export const getUserProfile = async (userId: string): Promise<any> => {
   try {
     const q = query(usersCollection, where('uid', '==', userId))
     const querySnapshot = await getDocs(q)
