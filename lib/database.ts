@@ -116,7 +116,7 @@ export const getEventById = async (eventId: string) => {
   }
 }
 
-export const getAllEvents = async () => {
+export const getAllEvents = async (): Promise<any> => {
   try {
     const q = query(eventsCollection, orderBy('date', 'desc'))
     const querySnapshot = await getDocs(q)
@@ -128,7 +128,7 @@ export const getAllEvents = async () => {
   }
 }
 
-export const getPendingEvents = async () => {
+export const getPendingEvents = async (): Promise<any> => {
   try {
     const q = query(eventsCollection, orderBy('createdAt', 'desc'))
     const querySnapshot = await getDocs(q)
