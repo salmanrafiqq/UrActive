@@ -46,6 +46,12 @@ export default function SignupPage() {
     setError('')
     setSuccess(false)
 
+    // Validate email is a uregina.ca email
+    if (!formData.email.toLowerCase().endsWith('@uregina.ca')) {
+      setError('Only @uregina.ca email addresses are allowed to register')
+      return
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match')
       return
