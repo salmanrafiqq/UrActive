@@ -111,10 +111,23 @@ export default function SignupPage() {
         <div className="card p-8 shadow-lg">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="flex justify-center mb-4">
-              <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center">
-                <UserPlus className="w-8 h-8 text-white" />
-              </div>
+            <div className="flex justify-center mb-4 relative">
+              {avatarPreview ? (
+                <div className="relative group">
+                  <img
+                    src={avatarPreview}
+                    alt="Profile preview"
+                    className="w-16 h-16 rounded-full object-cover border-4 border-primary shadow-lg"
+                  />
+                  <div className="absolute inset-0 rounded-full bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                    <span className="text-white text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">Change</span>
+                  </div>
+                </div>
+              ) : (
+                <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-lg">
+                  <UserPlus className="w-8 h-8 text-white" />
+                </div>
+              )}
             </div>
             <h1 className="text-2xl font-bold text-slate-900 mb-2">Create Account</h1>
             <p className="text-slate-600">Join the URActive community</p>
