@@ -87,7 +87,7 @@ export function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-primary text-xl">
             <img 
-              src="https://i.ibb.co/RkzwSRMb/Ur-Active-Logo.png" 
+              src="https://i.ibb.co/fd0S1D2r/LOGO-URACTIVE.png" 
               alt="URActive Logo" 
               className="h-10 w-auto max-w-xs object-contain"
               onError={(e) => {
